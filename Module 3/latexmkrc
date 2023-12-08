@@ -1,0 +1,1 @@
+$ENV{'TEXINPUTS'}='/home/alqua/.texmf/template//:' . $ENV{'TEXINPUTS'}; 
