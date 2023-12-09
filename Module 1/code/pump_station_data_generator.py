@@ -22,8 +22,9 @@ class PumpSignalGenerator:
 
     def smooth_speed(self, previous_speed):
         """ Generates the next speed level based on the previous speed. """
-        min_speed, max_speed = 900, 1400
-        delta = random.randint(2, 10)
+        min_speed, max_speed = 900, 1500
+        delta = random.randint(2, 20)
+        
         if previous_speed == min_speed:
             next_speeds = [min_speed, min_speed + delta]
         elif previous_speed == max_speed:
@@ -38,18 +39,19 @@ class PumpSignalGenerator:
         """ Speed to outflow model """
         if np.any(speed_lags == 0):
             return efficiency * (0.35*speed_lags[-1] + 0.085*outflow_lags[-1])
+            
         else:
-            return efficiency * (0.0012*speed_lags[0] + 0.002*speed_lags[1] + 0.35*speed_lags[2] +
-                                 0.0012*outflow_lags[0] + 0.002*outflow_lags[1] + 0.085*outflow_lags[2]) + np.random.normal(0, 0.1)
+            return efficiency * (0.12*speed_lags[0] + 0.2*speed_lags[1] + 0*speed_lags[2] +
+                                 0.12*outflow_lags[0] + 0.02*outflow_lags[1] + 0*outflow_lags[2]) + np.random.normal(0, 0.1)
 
     @staticmethod
     def speed_to_power_model(speed_lags, power_lags, efficiency=1):
         """ Speed to power model """
         if np.any(power_lags == 0):
-            return efficiency * (0.000055*speed_lags[-1]**2)
+            return efficiency * (0.00004*speed_lags[-1]**2)
         else:
-            return efficiency * (0.00005*speed_lags[0]**2 + 0.00015*speed_lags[0] + 0.00002*speed_lags[2] +
-                                 0.00006*power_lags[0] + 0.0001*power_lags[0] + 0.0003*power_lags[2]) + np.random.normal(0, 0.2)
+            return efficiency * (0.00004*speed_lags[0]**2 + 0.00015*speed_lags[1] + 0*speed_lags[2] +
+                                 0.00005*power_lags[0] + 0.0001*power_lags[1] + 0*power_lags[2]) + np.random.normal(0, 0.2)
 
     def generate_signal(self):
             """ Simulation of a pump station with two pumps alternating each self.alternation_interval interval"""
