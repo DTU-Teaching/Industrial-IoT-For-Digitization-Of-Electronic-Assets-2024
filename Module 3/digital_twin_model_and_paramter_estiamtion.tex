@@ -297,16 +297,15 @@ def generate_siso_data(n, noise_level=0.1, a1=0.5, a2=-0.3, b1=0.7, b2=-0.2):
     :param noise_level: Standard deviation of the noise.
     :param a1, a2: Coefficients for the autoregressive part of the model.
     :param b1, b2: Coefficients for the exogenous input part of the model.
-    :return: Tuple of (y, x), where y is the target series and x is the exogenous series.
+    :return: Tuple of (y, u), where y is the target series and u is the exogenous series.
     """
-    # Generating exogenous input (x) as a pseudo-binary random signal
+    # Generating exogenous input (x) as a random signal
     x = np.random.randint(0, 2, size=n)
 
     # Generating the target series (y)
     y = np.zeros(n)
     for t in range(2, n):
-        y[t] = a1 * y[t-1] + a2 * y[t-2] +
-               b1 * x[t-1] + b2 * x[t-2] + np.random.normal(0, noise_level)
+        y[t] = a1 * y[t-1] + a2 * y[t-2] + b1 * x[t-1] + b2 * x[t-2] + np.random.normal(0, noise_level)
 
     return y, x
   \end{minted}
@@ -327,10 +326,11 @@ def generate_siso_data(n, noise_level=0.1, a1=0.5, a2=-0.3, b1=0.7, b2=-0.2):
 % SLIDE 16
 \begin{frame}[fragile]{\small{Fit an ARX Model}}
   \begin{minted}[fontsize=\scriptsize]{python}
-def fit_arx_model(y, x, na, nb):
+def fit_arx_model(y, u, na, nb):
     """
+    Fits an ARX model to the given data and returns the coefficients of A, B, and the intercept.
     :param y: Target time series.
-    :param x: Exogenous time series.
+    :param u: Exogenous time series.
     :param na: Order of the autoregressive part.
     :param nb: Order of the exogenous input part.
     :return: Coefficients of A, B and the intercept of the ARX model.
@@ -341,12 +341,12 @@ def fit_arx_model(y, x, na, nb):
 
     for i in range(max_lag, len(y)):
         lag_y = y[i-na:i] if na > 0 else []
-        lag_x = x[i-nb:i] if nb > 0 else []
-        row = np.concatenate([lag_y, lag_x])
+        lag_u = u[i-nb:i] if nb > 0 else []
+        row = np.concatenate([lag_y, lag_u])
         features.append(row)
 
-    X = np.array(features)
-    model = LinearRegression().fit(X, target)
+    U = np.array(features)
+    model = LinearRegression().fit(U, target)
     return model.coef_[:na], model.coef_[na:], model.intercept_
   \end{minted}
 \end{frame}
