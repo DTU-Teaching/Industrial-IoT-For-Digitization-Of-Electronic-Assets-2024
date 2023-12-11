@@ -1,4 +1,4 @@
 # Industrial IoT For Digitization Of Electronis Assets
 
-## Add description for Module 2
+## Add description for Module 3
 
