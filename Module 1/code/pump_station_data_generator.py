@@ -115,3 +115,4 @@ class PumpSignalGenerator:
 # Example usage
 signal_generator = PumpSignalGenerator(alternation_interval=240)
 signal_generator.generate_signal()
+
