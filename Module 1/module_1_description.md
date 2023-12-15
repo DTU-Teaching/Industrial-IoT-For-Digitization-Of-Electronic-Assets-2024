@@ -45,7 +45,8 @@ A more convenient and secure way to connect to the PLC through SSH is with a pub
 don't have to type in your password every time you want to connect to the PLC. If you are interested in how
 public/private keys work in-depth, watch the following video:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GSIDS_lvRv4?si=RgH3XZORyxeew5nu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[//]: # (inlcude image with link to video)
+<a href="https://www.youtube.com/watch?v=GSIDS_lvRv4"><img width="691" height="342" src="media/video.png" style="display: block; margin: 0 auto" alt="Computerphile video"></a>
 
 To do this, we first need to generate a key pair. You can do this by typing ```ssh-keygen``` in the terminal of your own
 computer. You will be asked to enter a file name for the key pair. You can leave the default value by pressing enter.
