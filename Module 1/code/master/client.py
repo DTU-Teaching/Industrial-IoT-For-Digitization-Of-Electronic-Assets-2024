@@ -1,7 +1,7 @@
 import logging
 import struct
 import time
-from pymodbus.payload import Endian, BinaryPayloadDecoder
+
 from pymodbus.client import ModbusTcpClient
 
 logging.basicConfig(level=logging.INFO)
@@ -32,6 +32,10 @@ class ModbusPumpstationClient:
         handle = [struct.pack('>H', p) for p in registers]
         binary_string = b''.join(handle)
         return struct.unpack('!f', binary_string)[0]
+
+    def encode_32_bit_integer(self, value):
+        byte_value = struct.pack('>I', int(value))
+        return struct.unpack('>HH', byte_value)
 
     def _get_bool(self, pos):
         if not self.client.connected:
@@ -77,12 +81,12 @@ class ModbusPumpstationClient:
     def set_p1_speed(self, speed):
         if not self.client.connected:
             self.client.connect()
-        self.client.write_register(self.P1_SPEED_HR, speed)
+        self.client.write_registers(self.P1_SPEED_HR, self.encode_32_bit_integer(speed))
 
     def set_p2_speed(self, speed):
         if not self.client.connected:
             self.client.connect()
-        self.client.write_register(self.P2_SPEED_HR, speed)
+        self.client.write_registers(self.P2_SPEED_HR, self.encode_32_bit_integer(speed))
 
 
 if __name__ == '__main__':
