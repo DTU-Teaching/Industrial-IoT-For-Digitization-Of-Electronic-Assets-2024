@@ -1,0 +1,128 @@
+\documentclass[aspectratio=169,hyperref={pdfpagelabels=false}]{beamer}
+\input{preamble.tex}
+
+\subtitle{\normalsize{Industrial IoT for Digitization of Electronis Assets}}
+\title{Model Predictive Control via Imitation Learning}
+
+\setdepartment{DTU Wind and Energy System}
+\setcolor{blue}
+
+\begin{document}
+\inserttitlepage
+
+%B SLIDE 0
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+\begin{frame}
+  \frametitle{Overview of MPC}
+  \begin{itemize}
+      \item Model Predictive Control (MPC) is an advanced method of process control that predicts the future behavior of a system.
+      \item MPC uses a mathematical model to make predictions and optimize control actions.
+      \item It handles multi-variable control problems with constraints effectively.
+  \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+  \frametitle{System Model}
+  \begin{itemize}
+      \item The system is typically represented by a state-space model:
+      \[ x_{k+1} = Ax_k + Bu_k + w_k \]
+      \[ y_k = Cx_k + v_k \]
+      \item \( x_k \): state vector, \( u_k \): control input, \( y_k \): output.
+      \item \( A, B, C \): system matrices, \( w_k, v_k \): process and measurement noise.
+  \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+  \frametitle{Objective Function}
+  \begin{itemize}
+      \item Objective function to be minimized over a prediction horizon \( N \):
+      \[ \min_{U} \sum_{k=0}^{N-1} \left( \|y_{k|t} - r_{k}\|^2_Q + \|u_{k|t}\|^2_R \right) \]
+      \item \( y_{k|t} \): predicted output, \( r_{k} \): reference output, \( u_{k|t} \): predicted control input.
+      \item \( Q, R \): weighting matrices for tracking error and control effort.
+  \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+  \frametitle{Constraints and Optimization}
+  \begin{itemize}
+      \item MPC can handle various constraints like input, state, and output constraints.
+      \item Optimization problem solved at each step to find the best control sequence.
+      \item Receding horizon principle: Only the first control action is implemented and then the horizon is updated.
+  \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+  \frametitle{Formulation Agreement}
+  \begin{itemize}
+      \item The objective function provided is a standard MPC formulation:
+      \[ \min_{u, x, y} \sum_{k=1}^{T_{future}} \|y_k - r_k\|^2_Q + \|u_k\|^2_R \]
+      \item It aims to minimize the tracking error and control effort.
+  \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+  \frametitle{Conclusion}
+  \begin{itemize}
+      \item MPC is a powerful control strategy for systems with predictive models.
+      \item Its ability to anticipate and optimize future behavior makes it applicable in various fields.
+      \item The mathematical formulation is key to its effectiveness.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Challenges in MPC Deployment}
+    \begin{itemize}
+        \item Solving optimization problems online is computationally demanding.
+        \item High-dimensional systems pose a challenge due to the complexity and required computational resources.
+        \item Strict latency requirements and limited computational or energy resources can impede the deployment of MPC.
+    \end{itemize}
+    \footnote{Ahn, Kwangjun, et al. "Model Predictive Control via On-Policy Imitation Learning." Learning for Dynamics and Control Conference. PMLR, 2023.}
+    \end{frame}
+
+
+    \begin{frame}
+      \frametitle{Interactive Data Collection Scheme}
+      \begin{itemize}
+          \item A scheme is proposed to interactively collect data from a system in feedback with an MPC controller.
+          \item The goal is to learn an explicit controller that directly maps states to inputs.
+          \item This methodology aligns with imitation learning approaches in the reinforcement learning domain.
+      \end{itemize}
+      \vfill
+      \footnotetext{Ahn, Kwangjun, et al. "Model Predictive Control via On-Policy Imitation Learning." Learning for Dynamics and Control Conference. PMLR, 2023.}
+      \end{frame}
+      
+
+      \begin{frame}
+        \frametitle{Imitation Learning and MPC}
+        \begin{itemize}
+            \item Imitation learning involves learning an explicit controller that maps states to inputs.
+            \item It is suitable for MPC as it can query the MPC for the next input at any state by solving the optimization problem.
+            \item This process aligns with explicit MPC, which pre-computes solutions to optimization problems for runtime efficiency.
+        \end{itemize}
+        \footnotetext{Ahn, Kwangjun, et al. "Model Predictive Control via On-Policy Imitation Learning." Learning for Dynamics and Control Conference. PMLR, 2023.}
+        \end{frame}
+
+        \begin{frame}
+          \frametitle{Learning Controllers with High Fidelity to MPC}
+          \begin{itemize}
+              \item The goal is to learn a map from states to inputs that encapsulates the strategy of an MPC controller.
+              \item Unlike methods that collect data pre-learning, our approach interacts with the system dynamics to avoid distribution shift.
+              \item This interaction prevents sub-optimal performance and error compounding, which are common in non-interactive imitation learning.
+              \item Our approach aims for a learned controller that matches MPC performance with high probability.
+          \end{itemize}
+          \footnotetext{Ahn, Kwangjun, et al. "Model Predictive Control via On-Policy Imitation Learning." Learning for Dynamics and Control Conference. PMLR, 2023.}
+          \end{frame}
+          
+          \begin{frame}
+            \frametitle{Imitation Learning from an Expert}
+            \begin{block}{}
+              \textbf{Imitation learning} aims to learn from dimostrations a controller ${\hat{\pi}}$
+            \end{block}
+            \footnotetext{Ahn, Kwangjun, et al. "Model Predictive Control via On-Policy Imitation Learning." Learning for Dynamics and Control Conference. PMLR, 2023.}
+            \end{frame}
+            
+    
+\end{document}
