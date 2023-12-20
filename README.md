@@ -1,6 +1,6 @@
 ##  **Industrial IoT for Digitalization of Electronic Assets** Course.
 
-<p style="margin-top: 60px; margin-bottom: 20px;"></p>
+<p style="margin-top: 100px; margin-bottom: 20px;"></p>
 
 <p align="center">
 <img src="Module 3/img/dtu_logo.png" alt="Alt text" width="100"/>
