@@ -1,0 +1,127 @@
+# Setting up Development Enviroment and Tools
+This Document sets up everthing to be ready to go for the course Industrial IoT for Digitizaion of Electronic Assests. Not everything described here is strictly necessary and you are free to use alternives, however with this setup we can provide the best support and with alternatives you have to figure most parts out on your own.
+
+## Development Enviroment
+
+### Installing WSL2 (only needed if you are using Windows)
+Follow this tutorial to install Windows Subsystem for Linux 2 (WSL2):
+
+https://learn.microsoft.com/en-us/windows/wsl/install
+
+Make sure to set the version of WSL to 2 and choose Ubuntu as Linux Distribution.
+
+Open the Distribution installed in WSL2. Setup a username and password.
+You are then greeted by a bash linux environment which is a fully virtualized Linux setup. It enables you to do anything like you are an a native linux install. Further does it have integrations with windows to make working with both systems at the same time easier.
+In the windows explorer you can find a linux folder where you have access to the linux filesystem. The other direction you can access the windows filesystem from linux under the `/mnt/c/` folder.
+This enables you easily to copy files between the two systems, however you should store the files on the filesystem where you are primarily using them.
+It has many other functionalities like running graphical apps wihc are then shown in the windows environment. You can learn more here: https://learn.microsoft.com/en-us/windows/wsl/about
+
+### Linux Terminal / Shell / Bash
+Make sure to be familiar with basic operations using the shell, there are many tutorials on the web. For example: https://missing.csail.mit.edu/2020/course-shell/ 
+
+### Ensuring git is installed
+[<img src="https://imgs.xkcd.com/comics/git_2x.png" alt="XKCD Git" width="300"/>](https://xkcd.com/1597/)
+
+You can check if git is installed by typing
+
+```
+git --version
+```
+
+If it prints a version you have git installed and can continue with the next [step](#VSCode).
+If it prints some error message you have to install git.
+
+The official documentation of git can be found here: https://git-scm.com/doc
+If you are interested in a tutorial with technical details this is a good resource: https://missing.csail.mit.edu/2020/version-control/
+
+#### Linux/WSL2
+You can install git by typing 
+``` 
+sudo apt install git
+```
+and following the instructions.
+
+Check with the previous command if the installation was successfull.
+
+#### MacOS
+It should automattically ask you to install xcode command line tools if the git version check failed. Follow these to install git. Alternatively you can install the command line tools including git by executing:
+``` 
+xcode-select –-install
+```
+Check with the previous command if the installation was successfull.
+
+### VSCode
+Make sure you have Visual Studio Code installed (on Windows itself if you are using WSL2). https://code.visualstudio.com/
+
+#### WSL2 Specific
+Install the WSL Extension https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode and connect VSCode to WSL.
+
+This setup allows you to use VSCode running on Windows, but all the programming actually live inside WSL2.
+
+
+### Clone this repository
+
+```
+git clone https://github.com/DTU-Teaching/Industrial-IoT-For-Digitization-Of-Electronic-Assets.git
+```
+
+change into the repository and open it in VSCode
+
+```
+code .
+```
+
+In the bottom left you can see that VSCode is connected to WSL and which Distribution it is using. If you are running a program in this mode, it is executed in WSL and the terminal you can open is running in WSL as well.
+More information is available here: https://code.visualstudio.com/docs/remote/wsl
+
+### Install Conda
+Install Miniconda by executing the following commands:
+``` 
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+```
+
+Activate conda with:
+
+```
+~/miniconda3/bin/conda init bash
+```
+
+More documentation is available at: https://docs.conda.io/projects/miniconda/en/latest/
+
+#### Create conda environment
+
+Create a conda environment (e.g. named iot) with python 3.9 and install the basic packages:
+
+``` 
+conda create --name iot python=3.9
+```
+
+Activate the Conda environment with:
+```
+conda activate iot
+```
+
+To leave the environment at a later point use:
+```
+conda deactivate
+```
+
+Using different environments you can have different development setups each independently using different versions of packages or python. Further can the creation of environments be made reproduceable making shure other developers can easily setup the enviroment to run a program.
+
+### Install Python packages
+Using the previously created environment install the packages specified in the requierements.txt in the root folder of this repository.
+
+```
+pip install -r requirements.txt
+```
+
+Make sure you are in the right directory or modify the path to match the location.
+
+## Azure
+
+### Apply for Azure Student Creadits
+Apply for the Azure Student credits under the following link:
+https://azure.microsoft.com/en-us/free/students
