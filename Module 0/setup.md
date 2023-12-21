@@ -1,7 +1,7 @@
-# Setting up Development Enviroment and Tools
-This Document sets up everthing to be ready to go for the course Industrial IoT for Digitizaion of Electronic Assests. Not everything described here is strictly necessary and you are free to use alternives, however with this setup we can provide the best support and with alternatives you have to figure most parts out on your own.
+# Setting up Development Environment and Tools
+This Document sets up everything to be ready to go for the course Industrial IoT for Digitization of Electronic Assets. Not everything described here is strictly necessary and you are free to use alternatives, however with this setup we can provide the best support and with alternatives you have to figure most parts out on your own.
 
-## Development Enviroment
+## Development Environment
 
 ### Installing WSL2 (only needed if you are using Windows)
 Follow this tutorial to install Windows Subsystem for Linux 2 (WSL2):
@@ -14,7 +14,7 @@ Open the Distribution installed in WSL2. Setup a username and password.
 You are then greeted by a bash linux environment which is a fully virtualized Linux setup. It enables you to do anything like you are an a native linux install. Further does it have integrations with windows to make working with both systems at the same time easier.
 In the windows explorer you can find a linux folder where you have access to the linux filesystem. The other direction you can access the windows filesystem from linux under the `/mnt/c/` folder.
 This enables you easily to copy files between the two systems, however you should store the files on the filesystem where you are primarily using them.
-It has many other functionalities like running graphical apps wihc are then shown in the windows environment. You can learn more here: https://learn.microsoft.com/en-us/windows/wsl/about
+It has many other functionalities like running graphical apps which are then shown in the windows environment. You can learn more here: https://learn.microsoft.com/en-us/windows/wsl/about
 
 ### Linux Terminal / Shell / Bash
 Make sure to be familiar with basic operations using the shell, there are many tutorials on the web. For example: https://missing.csail.mit.edu/2020/course-shell/ 
@@ -41,14 +41,14 @@ sudo apt install git
 ```
 and following the instructions.
 
-Check with the previous command if the installation was successfull.
+Check with the previous command if the installation was successful.
 
 #### MacOS
 It should automattically ask you to install xcode command line tools if the git version check failed. Follow these to install git. Alternatively you can install the command line tools including git by executing:
 ``` 
 xcode-select –-install
 ```
-Check with the previous command if the installation was successfull.
+Check with the previous command if the installation was successful.
 
 ### VSCode
 Make sure you have Visual Studio Code installed (on Windows itself if you are using WSL2). https://code.visualstudio.com/
@@ -109,10 +109,10 @@ To leave the environment at a later point use:
 conda deactivate
 ```
 
-Using different environments you can have different development setups each independently using different versions of packages or python. Further can the creation of environments be made reproduceable making shure other developers can easily setup the enviroment to run a program.
+Using different environments you can have different development setups each independently using different versions of packages or python. Further can the creation of environments be made reproducible making sure other developers can easily setup the environment to run a program.
 
 ### Install Python packages
-Using the previously created environment install the packages specified in the requierements.txt in the root folder of this repository.
+Using the previously created environment install the packages specified in the requirements.txt in the root folder of this repository.
 
 ```
 pip install -r requirements.txt
@@ -121,7 +121,14 @@ pip install -r requirements.txt
 Make sure you are in the right directory or modify the path to match the location.
 
 ## Azure
+Make sure to use a account different from the DTU provided account!
 
-### Apply for Azure Student Creadits
+### Apply for Azure Student Credits
 Apply for the Azure Student credits under the following link:
 https://azure.microsoft.com/en-us/free/students
+
+Then through https://portal.azure.com access your account. Go to the Education site by searching for it and check the site if the credit has been applied.
+![](imgs/azure_not_signed_up.png)
+If it looks like the previous image sign out and in again, if there is still no credit available follow the steps through the Education page on Azure portal.
+If successful it should like this, showing the available credit. It may be necessary to sign out again and back in.
+![](imgs/azure_success.jpg)
