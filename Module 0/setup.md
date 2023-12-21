@@ -22,6 +22,9 @@ Make sure to be familiar with basic operations using the shell, there are many t
 ### Ensuring git is installed
 [<img src="https://imgs.xkcd.com/comics/git_2x.png" alt="XKCD Git" width="300"/>](https://xkcd.com/1597/)
 
+The official documentation of git can be found here: https://git-scm.com/doc
+If you are interested in a tutorial with technical details this is a good resource: https://missing.csail.mit.edu/2020/version-control/
+
 You can check if git is installed by typing
 
 ```
@@ -30,9 +33,6 @@ git --version
 
 If it prints a version you have git installed and can continue with the next [step](#VSCode).
 If it prints some error message you have to install git.
-
-The official documentation of git can be found here: https://git-scm.com/doc
-If you are interested in a tutorial with technical details this is a good resource: https://missing.csail.mit.edu/2020/version-control/
 
 #### Linux/WSL2
 You can install git by typing 
@@ -44,7 +44,7 @@ and following the instructions.
 Check with the previous command if the installation was successful.
 
 #### MacOS
-It should automattically ask you to install xcode command line tools if the git version check failed. Follow these to install git. Alternatively you can install the command line tools including git by executing:
+It should automatically ask you to install xcode command line tools if the git version check failed. Follow these to install git. Alternatively you can install the command line tools including git by executing:
 ``` 
 xcode-select –-install
 ```
@@ -60,9 +60,10 @@ This setup allows you to use VSCode running on Windows, but all the programming 
 
 
 ### Clone this repository
+Optionally create a folder where you want to store your git projects.
 
 ```
-git clone https://github.com/DTU-Teaching/Industrial-IoT-For-Digitization-Of-Electronic-Assets.git
+git clone <this repository>
 ```
 
 change into the repository and open it in VSCode
