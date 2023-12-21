@@ -53,6 +53,17 @@ Check with the previous command if the installation was successful.
 ### VSCode
 Make sure you have Visual Studio Code installed (on Windows itself if you are using WSL2). https://code.visualstudio.com/
 
+#### Install recommended VSCode extensions
+Pylance: https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance
+
+Python: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+
+Jupyter: https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter
+
+IntelliCode: https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode
+
+Azure IoT Hub: https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-toolkit
+
 #### WSL2 Specific
 Install the WSL Extension https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode and connect VSCode to WSL.
 
@@ -97,7 +108,7 @@ More documentation is available at: https://docs.conda.io/projects/miniconda/en/
 Create a conda environment (e.g. named iot) with python 3.9 and install the basic packages:
 
 ``` 
-conda create --name iot python=3.9
+conda create --name iot python=3.10
 ```
 
 Activate the Conda environment with:
