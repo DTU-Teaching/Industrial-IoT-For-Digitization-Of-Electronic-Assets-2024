@@ -64,6 +64,10 @@ IntelliCode: https://marketplace.visualstudio.com/items?itemName=VisualStudioExp
 
 Azure IoT Hub: https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-toolkit
 
+Azure Tools: https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack
+
+Azurite: https://marketplace.visualstudio.com/items?itemName=Azurite.azurite
+
 #### WSL2 Specific
 Install the WSL Extension https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode and connect VSCode to WSL.
 
@@ -132,6 +136,22 @@ pip install -r requirements.txt
 
 Make sure you are in the right directory or modify the path to match the location.
 
+
+## Install Azure functions core tools
+Install the Azure functions core tools to run Azure functions locally.
+https://github.com/Azure/azure-functions-core-tools
+
+### Linux
+https://github.com/Azure/azure-functions-core-tools#linux
+
+```
+wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt-get update
+sudo apt-get install azure-functions-core-tools-4
+```
+
+
 ## Azure
 Make sure to use a account different from the DTU provided account!
 
@@ -144,3 +164,6 @@ Then through https://portal.azure.com access your account. Go to the Education s
 If it looks like the previous image sign out and in again, if there is still no credit available follow the steps through the Education page on Azure portal.
 If successful it should like this, showing the available credit. It may be necessary to sign out again and back in.
 ![](imgs/azure_success.jpg)
+
+## Install pgAdmin
+On the native system install pgAdmin https://www.pgadmin.org/
