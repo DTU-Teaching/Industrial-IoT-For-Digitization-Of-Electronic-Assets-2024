@@ -33,7 +33,7 @@ Follow this tutorial to create a flexible postgres server on Azure:
 https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/quickstart-create-server-portal
 
 You can choose Development for the workload type and under the network add you current ip as allowed for the firewall.
-If you access the server later from a different location you need to allow that ip again on the networking page for the server on Azure (This can also be necessary if you public ip changes at the same location)
+If you access the server later from a different location you need to allow that ip again on the networking page for the server on Azure (This can also be necessary if you public ip changes at the same location). Here check the box "Allow public access from any Azure service within Azure to this server" as well to be able to access the server from the Azure function as well.
 
 ### Connect with pgAdmin to the database
 On the left panel right click on Servers>register>Server...
