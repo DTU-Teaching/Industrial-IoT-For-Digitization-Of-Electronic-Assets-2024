@@ -30,7 +30,7 @@ A few notes on the project.
 - The requirements.txt specifies the packages needed by the function and which are installed in the cloud (you need to specify this separately from what you are using in the conda environment)
 - for psycopg2 use "psycopg2-binary" since the normal version does not work with azure functions
 - In local.settings.json you can specify environment variables. Use these to avoid putting your credentials in your code!: 
-```
+```json
 {
   "IsEncrypted": false,
   "Values": {
@@ -49,7 +49,7 @@ Normally you should always would create a separate user for accessing the databa
 #### Coding 
 
 This is an example for getting the message from the event:
-```
+```python
 @app.event_grid_trigger(arg_name="event")
 def hubtodbfunction(event: func.EventGridEvent):
 
@@ -61,7 +61,7 @@ def hubtodbfunction(event: func.EventGridEvent):
 
 This is an example of how to insert values into the database. You have to adapt the example to fit your values and setup. Keep in mind that depending how you followed the previous step you have to insert multiple rows of data.
 
-```
+```python
 username = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWORD")
 db_connection = "<whateverdatabase>.postgres.database.azure.com:5432/postgres?sslmode=require"
@@ -121,7 +121,7 @@ If not check the different parts of the chain to investigate what causes errors.
 # Retrieving the data from the database
 From python you can query the table and create a pandas dataframe like this:
 
-```
+```python
 username = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWORD")
 CONNECTION = f"postgres://{username}:{password}@<your database name>.postgres.database.azure.com:5432/postgres?sslmode=require"
@@ -131,3 +131,28 @@ with psycopg2.connect(CONNECTION) as conn:
 ```
 
 By modifying the SQL query you can limit he dataframe for example in time range or columns retrieved.
+
+# Grafana
+
+## installing Grafana in Azure
+
+Search for "Azure Managed Grafana" and create a instance. For pricing plan the standard provides a fee instance for the first 30 days and don't forget to add yourself as an administrator on the permissions tab.
+After the resource is created you can find the endpoint to access the dashboard on the overview of the resource. You can login with the same account as used for the Azure portal.
+
+## Adding a datasource
+
+Add your Postgres database as a data source to Grafana. https://grafana.com/docs/grafana/latest/datasources/postgres/
+The Database name is most likely just postgres.
+
+## Visualizing data
+
+Create a [dashboard](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/create-dashboard/) with a [timeseries panel](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/time-series/) displaying the values stored in the database.
+
+This is an example query you could use to retrieve the data:
+```sql
+SELECT time, <other columns>
+FROM <table name>
+WHERE $__timeFilter(time) 
+```
+
+After saving you see a dashboard with the data collected. In the top right you can enable automatic update of the dashboard, if everything is working correctly you can see the new data arriving and being displayed (depending on the setup with 10-60 seconds of delay).
