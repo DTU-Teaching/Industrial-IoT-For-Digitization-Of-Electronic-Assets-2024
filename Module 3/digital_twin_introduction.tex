@@ -1,8 +1,8 @@
 \documentclass[aspectratio=169,hyperref={pdfpagelabels=false}]{beamer}
 \input{preamble.tex}
 
-\subtitle{\normalsize{Industrial IoT for Digitization of Electronis Assets}}
-\title{}
+\subtitle{\normalsize{Industrial IoT for Digitization of Electronic Assets}}
+\title{Digital Twins \& Green Transition: An Introduction}
 
 \setdepartment{DTU Wind and Energy System}
 \setcolor{blue}
@@ -12,25 +12,31 @@
 
 %B SLIDE 0
 \begin{frame}{Agenda}
-  \tableofcontents
+  \begin{itemize}
+    \item The goals of the green transition.
+    \item The European Targets.
+    \item Future Projections in Denmark.
+    \item Future Challannges.
+    \item Digital Twins (DT): Some Definitions.
+    \item Boosting the Digitilization with \textbf{DT}.
+  \end{itemize}
 \end{frame}
 
 % SLIDE 1
 \begin{frame}{}
 
   \includegraphics[width=0.9\textwidth]{img/pic0.png} 
-      \footnotetext{World Energy Outlook 2023, iea}
+  \let\thefootnote\relax\footnotetext{\tiny{World Energy Outlook 2023, iea}}
     \end{frame}
 
 % SLIDE 2
-    \begin{frame}{The Green Transition and European Targets}
-    Europe has set the goal of reducing 40\% of Greenhouse Gas emissions by 2030 and the 80-95\% by 2050, to reach the target of maintaining global atmospheric warming below the 2°C. 
+    \begin{frame}{\Large{The Green Transition and European Targets}}
+    Europe has set the goal of reducing 40\% of Greenhouse Gas emissions by 2030 and the 80-95\% by 2050, to reach the target of maintaining global atmospheric warming below the 2°\;C. 
     To accomplish this target, massive investment in renewables is on the way:
 
     \vspace*{1em}
 
         \begin{columns}
-      
           % Left column
           \begin{column}{0.4\textwidth}
             % Add your text here
@@ -51,11 +57,11 @@
             \includegraphics[width=\textwidth]{img/pic1.png} % Replace with your image path
           \end{column}
         \end{columns}
-        \footnotetext{European policies on climate and energy towards 2020, 2030 and 2050}
+        \let\thefootnote\relax\footnotetext{\tiny{European policies on climate and energy towards 2020, 2030 and 2050}}
       \end{frame}
 
 % SLIDE 3
-\begin{frame}{Future Projections In Denmark}
+\begin{frame}{\Large{Future Projections In Denmark}}
 
         \begin{columns}
           % Left column
@@ -71,24 +77,32 @@
             \includegraphics[width=0.75\textwidth]{img/pic2.png} % Replace with your image path
           \end{column}
         \end{columns}
-        \footnotetext{Energinet. (2022). SCENARIERAPPORT 2022 – 2032: Forventninger til fremtidens Systemydelser. Energinet}
+        \let\thefootnote\relax\footnotetext{\tiny{Energinet. (2022). SCENARIERAPPORT 2022 – 2032: Forventninger til fremtidens Systemydelser. Energinet}}
       \end{frame}
 
 % SLIDE 4
-\begin{frame}{Main Challenges of energy sistem based on Renewables}
-\includegraphics[width=0.3\textwidth]{img/pic5.png} \centering
+\begin{frame}{}
+  \begin{center}
+  \Large{\textbf{What Are the Main Challenges of an Energy System Based on Renewables?}}
+  \end{center}
+  \vspace{1em}
+  \begin{figure}[t]
+    \includegraphics[width=0.25\textwidth]{img/pic5.png} \centering
+    \centering
+    \end{figure}
+  
 \end{frame}
         
 % SLIDE 5
-\begin{frame}{Past and Future Challenges}
+\begin{frame}{\Large{Past and Future Challenges}}
   \begin{columns}
     % Left column
     \begin{column}{0.5\textwidth}
       \begin{itemize}
-        \item Higher chance of frequency events. 
+        \item Higher chance of frequency disturbances. 
         \item Higer capacity of Ancillary Services. 
         \item Tailored control strategies. 
-        \item Reduce the curtailment of energy production with BESS. \pause
+        \item Optimize Storage and Production. \pause
       \end{itemize}
     \end{column}
 
@@ -104,22 +118,38 @@
   \end{columns}
 \end{frame}
 
-% SLIDE 5
-\begin{frame}{Digital Twins: \\ \vspace{0.5em}
-               \normalsize{A core technology to boost the Digitalization}}
+\begin{frame}{\Large{Ancillary Services}}
+\begin{figure}[h]
+\includegraphics[width=0.80\textwidth]{img/ancillary_services.png} \centering
+\let\thefootnote\relax\footnotetext{\tiny{Energinet - ANNUAL MAGAZINE 2023}}
+\end{figure}
+\end{frame}
 
+% SLIDE 5
+\begin{frame}{\Large{Digital Twins: Some Definitions}}
   \begin{figure}[h]
-    \vspace{3em}
-    \includegraphics[width=0.85\textwidth]{img/digital_twin_definitions.pdf} \centering
+    \vspace{0em}
+    \includegraphics[width=1\textwidth]{img/digital_twin_definitions.pdf} \centering
   \end{figure}
 \end{frame}
 
 % SLIDE 6
-\begin{frame}{Digital Twins: \\ \vspace{0.5em}
+\begin{frame}{\large{Digital Twins:} \\ \vspace{0.5em}
   \normalsize{A core technology to boost the Digitalization}}
 \begin{figure}[h]
   \vspace{1em}
 \includegraphics[width=1.05\textwidth]{img/pic7.png} \centering
+\end{figure}
+\end{frame}
+
+% SLIDE 6
+\begin{frame}{\large{Digital Twins:} \\ \vspace{0.5em}
+  \normalsize{An application example to the Wastewater in Bornholm.}}
+\begin{figure}[h]
+  \vspace{1em}
+\includegraphics[width=0.95\textwidth]{img/Block_diagram_pump_ronne.pdf} \centering
+\let\thefootnote\relax\footnotetext{\tiny{Quattrociocchi, A., Subroto, R. K., Oppedijk, W. M., \& Dragičević, T. (2023, October). 
+Energy Efficiency Optimization of a Wastewater Pumping Station Through IoT and AI: A Real-World Application of Digital Twins.}}
 \end{figure}
 \end{frame}
 

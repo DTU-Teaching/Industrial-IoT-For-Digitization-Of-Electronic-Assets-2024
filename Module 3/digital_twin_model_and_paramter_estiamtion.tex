@@ -5,6 +5,7 @@
 \usepackage{bm}
 \usepackage{amsmath}
 \usepackage{minted}
+\usepackage{mathrsfs}
 
 \usetikzlibrary{shapes.geometric, arrows, positioning}
 
@@ -68,7 +69,7 @@
   \begin{column}{0.6\textwidth}
 
   \begin{tcolorbox}[width=1\linewidth, height = 0.4\linewidth]
-    \textbf{\bm{$t \geq 0$}}\centering
+    \centering
     \begin{align*}
       I &= \frac{1}{R_1}V_{C} + C\frac{d}{dt}V_{C} \\
       V &= R_{0}I+ V_{C}\\
@@ -76,18 +77,19 @@
   \end{tcolorbox} \pause 
    
     \begin{tcolorbox}[width=1\linewidth, height = 0.3\linewidth]
-      \textbf{\bm{$t \geq 0$}}\centering
+      \centering
       \begin{align*}
         V + CR_{1}\frac{d}{dt}V = (R_0 + R_1)I + CR_{0}R_{1}\frac{d}{dt}I
       \end{align*}
     \end{tcolorbox}
   \end{column}
   \end{columns}
+  \let\thefootnote\relax\footnotetext{\tiny{Willems, J. C., \& Polderman, J. W. (1997). Introduction to mathematical systems theory: a behavioral approach (Vol. 26). Springer Science \& Business Media.}}
 \end{frame}
 
 % SLIDE 3
 \begin{frame}{Example of White Box Model}
-The differential equation can be solved analitically, thus finding $I$ has an exponential reponse
+  At time $t < 0$, the circuit is shorted ($V=0$) and at $t=0$ a $1V$ battery is attached.
   \begin{columns}
     \begin{column}{0.4\textwidth}
       \begin{circuitikz}
@@ -119,13 +121,14 @@ The differential equation can be solved analitically, thus finding $I$ has an ex
     \end{figure}
   \end{column}
   \end{columns}
+\let\thefootnote\relax\footnotetext{\tiny{Willems, J. C., \& Polderman, J. W. (1997). Introduction to mathematical systems theory: a behavioral approach (Vol. 26). Springer Science \& Business Media.}}
 \end{frame}
 
 % SLIDE 4
 \begin{frame}{Example of Grey Box Model}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \begin{tcolorbox}[width=1\linewidth, height = 1.1\linewidth]
+      \begin{tcolorbox}[width=1\linewidth, height = 1\linewidth]
       \textbf{Stochastic Models}
       \begin{align*}
         dx_t &= f(x_t, u_t, t, \theta) + \sigma(u_t, t, \theta)d\omega \\
@@ -135,22 +138,18 @@ The differential equation can be solved analitically, thus finding $I$ has an ex
       Suitable for both linear, non-linear models.  
       Used to represent systems influenced by both deterministic and stochastic components,
       accounting for random fluctuations in the system and uncertainties. \\
-      \textbf{CTSM-R} is a great R package from DTU Compure to fit \textit{sde}.
       \end{tcolorbox}\pause 
 
     \end{column}
     \begin{column}{0.5\textwidth}
-      \begin{tcolorbox}[width=1\linewidth, height = 1.1\linewidth]
+      \begin{tcolorbox}[width=1\linewidth, height = 1\linewidth]
         \textbf{PINNs:Physics-informed neural networks} \\
-        Gaining attention in recent years, as a class of machine learning techniques that combine data-driven neural
+        A class of machine learning techniques that combine data-driven neural
         networks with physical equations to solve complex problems in various fields,
         such as physics, and engineering, minimizing the discrepancy between the predictions made by the neural network and physical equations.
         \end{tcolorbox}
     \end{column}
 \end{columns} 
-
-
-
 \end{frame}
 
 % SLIDE 5
@@ -160,26 +159,54 @@ The differential equation can be solved analitically, thus finding $I$ has an ex
   \begin{figure}
     \centering
     \includegraphics[scale=0.5]{img/pic10.png}
-    \caption{Caption for the Image}
-    \label{fig:example}
   \end{figure}
-
 \end{frame}
 
 % SLIDE 6
 \begin{frame}{AutoRegressive Model (\textbf{AR})}
-\begin{block}{Test}
+\begin{block}{First Order Model}
   Let's consider the simplest form of an AR model:
   \begin{equation*}
-    y_{t} = a y_{t-1} + \epsilon
+    y(t) = a_1 y(t-1) + \epsilon
   \end{equation*}
 \end{block}
-  Where $y_{k-1}$ is the value of the time series at time $t-1$ and $\epsilon$ an error term. 
-  \begin{block}{General}
+  Where $\bm{y_{t-1}}$ is the \textit{lag} of $\bm{y}$ at time $t-1$ and $\bm{\epsilon}$ an error term. 
+  \begin{block}{$\bm{n_a}$ order model}
     \begin{equation*}
-      y_{k} = a_{1}y_{t-1} + a_{2}y_{t-2} + \dots + a_{n}y_{t-n} + \epsilon_t = \sum_{i=1}
+      y(t) = {a}_{1}y(t-1) + a_{2}y(t-2) + \dots + a_{n_a}y(t-n_a) + \epsilon_t
     \end{equation*}
   \end{block}
+\end{frame}
+
+\begin{frame}{Definition of Dynamical System}
+  \begin{block}{}
+    A dynamical system $\Sigma$ is defined as a triple
+  \[
+    \Sigma = (T, W, \mathscr{B}),
+  \]
+  \begin{itemize}
+    \item $T$ a subset of $\mathbb{Z}_+$ (in \textit{discrete-time systems}).
+    \item $W$ a set called the \textit{signal space}.
+    \item $\mathscr{B}$ a subset of $W^T$ called the \textit{behavior}.
+  \end{itemize}
+  \end{block}
+  \let\thefootnote\relax\footnotetext{\tiny{Willems, J. C., \& Polderman, J. W. (1997). Introduction to mathematical systems theory: a behavioral approach (Vol. 26). Springer Science \& Business Media.}}
+\end{frame}
+
+% Slide 2: Definition of LTI Dynamic System and Properties
+\begin{frame}{Linear Time-Invariant (LTI) Dynamic Systems}
+  \begin{block}{Definition:}
+    \begin{itemize}
+      \item[] A \textit{Linear Time-Invariant} (LTI) system is a dynamical system where the principles of superposition (linearity) and shift invariance (time invariance) hold.
+    \end{itemize}
+  \end{block}\pause
+
+\begin{block}{Properties:}
+  \begin{itemize}
+    \item \textbf{Linearity:} Given $y_1(t)$ and $y_2(t)$ the outputs corresponding to inputs $x_1(t)$ and $x_2(t)$, then for any constants $a$ and $b$, the system's response to $ax_1(t) + bx_2(t)$ is $ay_1(t) + by_2(t)$.
+    \item \textbf{Time Invariance:} If the output of the system to an input $x(t)$ is $y(t)$, then the output to an input $x(t - t_0)$, for any time shift $t_0$, is $y(t - t_0)$.
+  \end{itemize}
+\end{block}
 \end{frame}
 
 % SLIDE 7
@@ -190,59 +217,79 @@ The differential equation can be solved analitically, thus finding $I$ has an ex
       y(t) = c + a_{1}y(t-1) + \dots + a_{n_a}y(t-n_a) + \\ 
               + b_{1}u(t-n_k) + \dots + b_{n_b}u(t-n_k-n_b-1) + \epsilon(t)      
     \end{align*}
-    Or in a more compact form: 
+    \begin{itemize}
+      \item $\bm{n_a}$: numbers of lags of the output signal $y$.
+      \item $\bm{n_b}$: numbers of lags of input signal$u$.
+      \item $\bm{n_k}$: delay order between the $y$ and $u$.
+    \end{itemize}
+     
     \begin{align*}
-      y(t) = \varphi'\theta + \epsilon(t)
+      \boxed{y(t) = \varphi'\theta + \epsilon(t)}
     \end{align*}
-
-  Where $\phi$ is the regressor vector, $\theta$ is the paramters vector to estimate, and  (white noise process). 
   \end{block}
   \end{frame}
 
 % SLIDE 8
   \begin{frame}{AutoRegressive eXogenous Model (\textbf{ARX})}
-    \begin{block}{Test}
-      Given an LTI system, with $y_t$ the output signal with exogenous input $u_t$ of delay k, an ARX model can be defined as follows:
-      \vspace{1em}
+    \begin{block}{}
+      Or equivalently:
+      \vspace{0.1em}
       \begin{align*}
         \boxed{y(t) = \varphi'\theta + \epsilon(t)}
       \end{align*}
     \begin{align*}
-      \bm{\theta} &= [a_1, \dots, a_{n_a} \; b_1, \dots, b_{n_b}]' \\
-      \bm{\varphi}(t) &= [y(t-1), \dots, y(t-n_a) \quad u(t-n_k) \dots, u_{t-n_k-n_b+1}]' \\
-      \bm{\epsilon}(t) &\sim \mathcal{N}(0,\sigma^2)
-    \end{align*}
+      \bm{\theta} &= [a_1, \dots, a_{n_a} \; b_1, \dots, b_{n_b}]' \hspace{0.5em }\textit{\textcolor{red}{unknown paramters}} \\
+      \bm{\varphi}(t) &= [y(t-1), \dots, y(t-n_a) \; u(t-n_k) \dots, u_{t-n_k-n_b+1}]' \hspace{0.5em }\textit{\textcolor{red}{regressors}}\\
+      \bm{\epsilon}(t) &\sim \mathcal{N}(0,\sigma^2) \hspace{0.5em }\textit{\textcolor{red}{error}}
+    \end{align*} \pause
+    Therefore, for a SISO (Single Input Single Output) time series, $y_{t+1}$ can be written as: 
+    \begin{align*}
+      \boxed{\hat{y}(t+1|\theta) = \varphi(t)'\theta}
+    \end{align*}  
     \end{block}
     \end{frame}
 
-% SLIDE 9
-\begin{frame}{Paramters Estimation}
-    \begin{block}{}
-    Therefore, for a SISO (Single Input Single Output) time series, $y_{t+1}$ can be written as: 
-    \begin{align*}
-      \hat{y}(t+1|\theta) = \varphi(t+1)'\theta
-    \end{align*}  
-    
-  \end{block}
-\end{frame}
-
 % SLIDE 10
 \begin{frame}{}
-    \begin{columns}
-    \column{0.5\textwidth} 
-    \includegraphics[width=0.5\textwidth]{img/pic5.png} \centering \pause
-    
+  \begin{block}{Remark}
+    We denote $\bm{\hat{y}(t+1|\theta) = \varphi(t)'\theta}$ the estimated output prediction
+  to emphasize that the estimate of $\hat{y}(t+1|\theta)$ depends from the past data on the paramters vector $\theta$ with $\epsilon=0$ (best case scenarion - \textbf{no residual error}).
+  \end{block}\pause
+  
+  \vspace{2em}  
+  \begin{columns}
+    \column{0.4\textwidth} 
+     \includegraphics[width=0.7\textwidth]{img/pic5.png} \centering \pause
     \column{0.5\textwidth} % Second column
-
     \begin{itemize}
-      \item $\varphi$' is the regressor vector 
-      \item $\epsilon(t)$ is the error \pause
-      \item $\theta$ is the coefficients vector (to be estimated)
+      \item $\bm{\varphi}' \rightarrow$ regressor vector (past data)
+      \item $\bm{\epsilon(t)} = 0 \rightarrow $ (known distribution)
+      \item[] \vspace{2em} \hspace{2em}\textbf{What is still missing?}   \pause
     \end{itemize}
     \end{columns}
 \end{frame}
 
 % SLIDE 11
+\begin{frame}{}
+  \begin{block}{Remark}
+    We denote $\bm{\hat{y}(t+1|\theta) = \varphi(t)'\theta}$ the estimated output prediction
+  to emphasize that the estimate of $\hat{y}(t+1|\theta)$ depends from the past data on the paramters vector $\theta$ with $\epsilon=0$ (best case scenarion - \textbf{no residual error}).
+  \end{block}
+  
+  \vspace{2em}  
+  \begin{columns}
+    \column{0.4\textwidth} 
+     \includegraphics[width=0.7\textwidth]{img/pic5.png} \centering
+    \column{0.5\textwidth} % Second column
+    \begin{itemize}
+      \item $\bm{\varphi}' \rightarrow$ regressor vector (past data)
+      \item $\bm{\epsilon(t)} = 0 \rightarrow $ (known distribution)
+      \item {$\bm{\theta}$ is the coefficients vector (to be estimated)}
+    \end{itemize}
+    \end{columns}
+\end{frame}
+
+% SLIDE 12
 \begin{frame}{Parameters Estimation}
       \begin{block}{}
         We don't know $\theta$ yet, but we have collected a set $Z^N$ of measured data.
@@ -522,14 +569,78 @@ Where $y_p$ is the estimated reponse, $p$ is the vector of paramters and K is th
   \end{figure}
 \end{frame}
 
-% SLIDE 25
 \begin{frame}
+  \frametitle{Model Selection: \textit{AIC} \& \textit{BIC}}
+
+  AIC and BIC are fundamental statistical tools used to select the best model from a group of potential models based on their performance with a given dataset. 
+  They are particularly crucial when there are multiple models, as they help balance fitting the data and model complexity, thus preventing overfitting or underfitting.
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Model Selection: \textit{AIC} \& \textit{BIC}}
   \begin{columns}
-  first column 
-  
-  \column{0.7\textwidth} % Second column
-Second column 
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Akaike Information Criterion (AIC)}
+        \textbf{Definition:} 
+        \begin{align*}
+          \boxed{\text{AIC} = 2k - 2\ln(L)}
+        \end{align*}
+          where: 
+        \begin{itemize}
+          \item \textbf{k} is the number of parameters
+          \item \textbf{L} is the maximum likelihood of the model.
+        \end{itemize}
+        \vspace{1.5em}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Bayesian Information Criterion (BIC)}
+        \textbf{Definition:}
+        \begin{align*}
+          \boxed{\text{BIC} = \ln(n)k - 2\ln(L)}
+        \end{align*} 
+        where: 
+        \begin{itemize}
+          \item  \textbf{n} is the number of observations
+          \item \textbf{k} is the number of parameters
+          \item \textbf{L} is the maximum likelihood of the model.
+          
+        \end{itemize}
+      \end{block}
+    \end{column}
   \end{columns}
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{Model Selection: \textit{AIC} \& \textit{BIC}}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Akaike Information Criterion (AIC)}
+        \textbf{Definition:} 
+        \begin{itemize}
+          \item Balances model fit and complexity.
+          \item More emphasis on goodness of fit than on simplicity.
+            \item [] \textbf{Limitations:}
+            \item Relative measure; cannot be used to test a single model.
+            \item Can be biased in small samples.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Bayesian Information Criterion (BIC)}
+        \textbf{Definition:}
+        \begin{itemize}
+          \item Includes a penalty term for the number of observations
+          \item making it more reliable for larger datasets.
+          \item Favors simpler models compared to AIC.
+          \item Assumes that the model errors are independently and identically distributed.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
 \end{document}
