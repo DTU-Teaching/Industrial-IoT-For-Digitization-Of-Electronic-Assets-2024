@@ -134,7 +134,7 @@ Using the previously created environment install the packages specified in the r
 pip install -r requirements.txt
 ```
 
-Make sure you are in the right directory or modify the path to match the location.
+Make sure you are in the right directory or modify the path to match the location. You have to run this again before starting with each module since there could be changes and additions.
 
 
 ## Install Azure functions core tools
