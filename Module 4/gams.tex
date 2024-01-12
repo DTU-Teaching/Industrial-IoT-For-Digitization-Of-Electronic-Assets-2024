@@ -1,0 +1,110 @@
+\documentclass[aspectratio=169,hyperref={pdfpagelabels=false}]{beamer}
+\input{preamble.tex}
+
+\subtitle{\normalsize{Industrial IoT for Digitization of Electronis Assets}}
+\title{Inflow Prediction with Generalized Additive Model}
+
+\setdepartment{DTU Wind and Energy System}
+\setcolor{blue}
+\captionsetup{font=scriptsize}
+\begin{document}
+\inserttitlepage
+
+%B SLIDE 0
+\begin{frame}{Agenda}
+  \begin{itemize}
+    \item Parametric vs non paramteric models 
+    \item The DMI API for weather forecast 
+    \item The inflow forecast using Prophet Model 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Parameteric vs Non-Parameteric Models}
+  \begin{block}{title}
+    A model can be summarized as a function $\boldsymbol{f}$ that maps the input $x$
+    \begin{align*}
+      Y = \boldsymbol{f}(X)
+    \end{align*}
+  \end{block}
+  The algorithm or the paramter estimation process allow to ``\textit{learn}'' the target function given the set of input data. 
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Definition: Parameteric Model}
+    \textit{A learning model that summarizes data with a set of parameters of fixed size 
+    (independent of the number of training examples) is called a parametric model.}
+  \end{block}
+  For \textit{example}, if we consider an \textbf{ARX} model: 
+  \begin{center}
+    \begin{tcolorbox}[width=0.8\linewidth, height = 0.25\linewidth]
+      \begin{align*}\centering
+        y(t) &= a_1 y(t-1) + a_2 y(t-2) + \cdots + a_p y(t-p) \\
+        &+ b_1 x_1(t-d) + b_2 x_2(t-d) + \cdots + b_q x_q(t-d) \\
+        &+ e(t)
+      \end{align*}
+  \end{tcolorbox}
+  \end{center}
+
+In this model $\boldsymbol{a_1}, \boldsymbol{a_2}, \boldsymbol{a_p},\cdots, \boldsymbol{b_1}, \boldsymbol{b_2}, \boldsymbol{b_q}$ are the model parameters.
+\end{frame}
+
+
+\begin{frame}{Non-Paramteric Models}
+  Non parameteric models is a class of models that do not make strong assumption on the form of the mapping function, used in case you have no prior knowledge on the data or the hypotetical model to implement.
+  They are more \textit{flexibile}, able to learn complex functional form from the training set of data. Non parameteric
+  can outperform parameteric models but at the cost of more training data, with more risk of overfitting. 
+
+\end{frame}
+
+
+\begin{frame}{Introduction to Prophet Model}
+  \begin{itemize}
+      \item Developed by Facebook for forecasting time series data.
+      \item Designed to handle the common features of business time series like seasonality and holidays.
+      \item Works well with daily observations that display patterns on different time scales.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Components of Prophet Model}
+  \begin{itemize}
+      \item Trend: Models non-periodic changes (e.g., growth over time).
+      \item Seasonality: Captures periodic changes (e.g., weekly, yearly).
+      \item Holidays: Accounts for irregular events or holidays.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Mathematical Model}
+  \begin{equation}
+      y(t) = g(t) + s(t) + h(t) + \epsilon_t
+  \end{equation}
+  \begin{itemize}
+      \item $y(t)$: Forecasted value.
+      \item $g(t)$: Trend function.
+      \item $s(t)$: Seasonality function.
+      \item $h(t)$: Holiday function.
+      \item $\epsilon_t$: Error term.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Trend Component}
+  \begin{itemize}
+      \item Non-linear trends fit with a logistic growth model.
+      \item Automatic detection of change points in the data.
+      \item Flexibility to adjust the trend’s sensitivity to change points.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Seasonality and Holidays}
+  \begin{itemize}
+      \item Seasonality using Fourier series to provide a flexible model.
+      \item Holiday effect modeled using an indicator function.
+      \item Ability to add custom holidays or events.
+  \end{itemize}
+\end{frame}
+
+
+\end{document}
