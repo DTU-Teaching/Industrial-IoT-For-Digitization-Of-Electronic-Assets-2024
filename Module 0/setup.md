@@ -27,7 +27,7 @@ If you are interested in a tutorial with technical details this is a good resour
 
 You can check if git is installed by typing
 
-```
+```bash
 git --version
 ```
 
@@ -36,7 +36,7 @@ If it prints some error message you have to install git.
 
 #### Linux/WSL2
 You can install git by typing 
-``` 
+```bash
 sudo apt install git
 ```
 and following the instructions.
@@ -45,7 +45,7 @@ Check with the previous command if the installation was successful.
 
 #### MacOS
 It should automatically ask you to install xcode command line tools if the git version check failed. Follow these to install git. Alternatively you can install the command line tools including git by executing:
-``` 
+```zsh
 xcode-select –-install
 ```
 Check with the previous command if the installation was successful.
@@ -75,24 +75,29 @@ This setup allows you to use VSCode running on Windows, but all the programming 
 
 
 ### Clone this repository
-Optionally create a folder where you want to store your git projects.
+Optionally create a folder where you want to store your git projects. Cloning the repository will create a copy in a new folder containing the full history of the repository.
 
+```bash
+git clone https://github.com/DTU-Teaching/Industrial-IoT-For-Digitization-Of-Electronic-Assets-Course.git
 ```
-git clone <this repository>
-```
+
+Later you can update by running `git pull` inside the folder containing the repository.
 
 change into the repository and open it in VSCode
 
-```
+```bash
 code .
 ```
 
+VSCode also detects the git repository and provides a gui to interact with it
+
+#### WSL note
 In the bottom left you can see that VSCode is connected to WSL and which Distribution it is using. If you are running a program in this mode, it is executed in WSL and the terminal you can open is running in WSL as well.
 More information is available here: https://code.visualstudio.com/docs/remote/wsl
 
 ### Install Conda
 Install Miniconda by executing the following commands:
-``` 
+```bash
 mkdir -p ~/miniconda3
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
 bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
@@ -101,7 +106,7 @@ rm -rf ~/miniconda3/miniconda.sh
 
 Activate conda with:
 
-```
+```bash
 ~/miniconda3/bin/conda init bash
 ```
 
@@ -111,17 +116,17 @@ More documentation is available at: https://docs.conda.io/projects/miniconda/en/
 
 Create a conda environment (e.g. named iot) with python 3.9 and install the basic packages:
 
-``` 
+```bash
 conda create --name iot python=3.10
 ```
 
 Activate the Conda environment with:
-```
+```bash
 conda activate iot
 ```
 
 To leave the environment at a later point use:
-```
+```bash
 conda deactivate
 ```
 
@@ -130,7 +135,7 @@ Using different environments you can have different development setups each inde
 ### Install Python packages
 Using the previously created environment install the packages specified in the requirements.txt in the root folder of this repository.
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
@@ -144,13 +149,12 @@ https://github.com/Azure/azure-functions-core-tools
 ### Linux
 https://github.com/Azure/azure-functions-core-tools#linux
 
-```
+```bash
 wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 sudo apt-get update
 sudo apt-get install azure-functions-core-tools-4
 ```
-
 
 ## Azure
 Make sure to use a account different from the DTU provided account!
