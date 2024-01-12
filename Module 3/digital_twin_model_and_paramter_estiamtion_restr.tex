@@ -342,167 +342,6 @@ Finally, $\theta^*$ can be derived:
 \end{block}
 \end{frame}
 
-% SLIDE 14
-\begin{frame}[fragile]{\small{Generate SISO data}}
-  \begin{minted}[fontsize=\scriptsize]{python}
-def generate_siso_data(n, test_size=0.2, noise_level=0.1, a1=0.5, a2=-0.3, b1=0.7, b2=-0.2):
-    """
-    Generates synthetic SISO data for an ARX model with na=2 and nb=2.
-    :param n: Number of data points to generate.
-    :param test_size: Proportion of the dataset to include in the test split.
-    :param noise_level: Standard deviation of the noise.
-    :param a1, a2: Coefficients for the autoregressive part of the model.
-    :param b1, b2: Coefficients for the exogenous input part of the model.
-    :return: Tuple of (y_train, u_train, y_test, u_test)
-    """
-    u = np.random.randint(0, 2, size=n)
-    y = np.zeros(n)
-
-    for t in range(2, n):
-        y[t] = a1 * y[t-1] + a2 * y[t-2] +  
-               b1 * u[t-1] + b2 * u[t-2] + np.random.normal(0, noise_level)
-
-    # Splitting the data into training and testing sets
-    y_train, y_test, u_train, u_test = train_test_split(y, u, test_size=test_size,
-                                                        shuffle=False)
-    return y_train, u_train, y_test, u_test
-  \end{minted}
-\end{frame}
-
-% SLIDE 15
-\begin{frame}[fragile]{Visualize the data}
-  \begin{minted}[fontsize=\scriptsize]{python}
-    y_train, u_train, y_test, u_test = generate_siso_data(n=1000, noise_level=0.05)
-  \end{minted}
-  \begin{figure}
-    \centering
-    \includegraphics[width=0.55\textwidth]{img/response.pdf}
-    \label{fig:your-plot}
-  \end{figure}
-\end{frame}
-
-% SLIDE 16
-\begin{frame}[fragile]{\small{Fit an ARX Model}}
-  \begin{minted}[fontsize=\scriptsize]{python}
-def fit_arx_model(y, u, na, nb):
-    """
-    :param y: Target time series.
-    :param u: Exogenous time series.
-    :param na: Order of the autoregressive part.
-    :param nb: Order of the exogenous input part.
-    :return: Coefficients of A, B and the intercept of the ARX model.
-    """
-    max_lag = max(na, nb)
-    features = []
-    target = y[max_lag:]
-
-    for i in range(max_lag, len(y)):
-        lag_y = y[i-na:i] if na > 0 else []
-        lag_u = u[i-nb:i] if nb > 0 else []
-        row = np.concatenate([lag_y, lag_u])
-        features.append(row)
-
-    U = np.array(features)
-    model = LinearRegression().fit(U, target)
-    return model.coef_[:na], model.coef_[na:], model.intercept_
-  \end{minted}
-\end{frame}
-
-\begin{frame}[fragile]{\underbar{GEKKO}: }
-  \href{https://github.com/BYU-PRISM/GEKKO}{\textcolor{blue}{GEKKO}} is a Python library designed for a Python package for machine learning and (dynamic) optimization.
-\begin{itemize}
-  \item Among many functionalities, also provides an ARX system identification. 
-\end{itemize}
-\vspace{1em}
-\begin{minted}[fontsize=\scriptsize]{python}
-from gekko import GEKKO
-
-m = GEKKO()   #optimization object
-
-# system identification
-t = np.arange(0, len(u_train))
-na = 2 # output coefficients
-nb = 2 # input coefficients
-yp,p,K = m.sysid(t, u_train, y_train, na, nb, pred='meas')
-\end{minted}
-Where $y_p$ is the estimated reponse, $p$ is the vector of paramters and K is the gain.
-\end{frame}
-
-
-% SLIDE 18
-\begin{frame}[fragile]{\underbar{SysIdentPy}: A Python for System identification}
-  \href{https://github.com/wilsonrljr/sysidentpy}{\textcolor{blue}{SysIdentPy}} is a Python library designed for linear and non-linear system identification.
-\begin{itemize}
-  \item FROLS $\rightarrow$ Forward Regression Orthogonal Least Squares.
-  \item Particularly effective in nonlinear system. 
-  \item Itertively adding new terms to the model, creating a pool of candidate terms (linear, nonlinear) based on the input data.
-  \item The orthogonalization process multicollinearity.
-\end{itemize}
-\end{frame}
-
-% SLIDE 19
-\begin{frame}[fragile]{\underbar{SysIdentPy}: A Python for System identification}
-  In this example we test this library on our SISO system to fit an ARX fit, manually selecting the order of the model.
-  
-  \begin{minted}[fontsize=\scriptsize]{python}
-    from sysidentpy.model_structure_selection import FROLS
-    from sysidentpy.basis_function._basis_function import Polynomial
-
-    basis_function = Polynomial(degree=1)
-
-    model = FROLS(
-        order_selection=False,
-        n_terms=5,
-        extended_least_squares=False,
-        ylag=2,
-        xlag=2,
-        estimator="least_squares",
-        basis_function=basis_function,
-    )
-
-    model.fit(X=u_train.reshape(-1,1), y=y_train.reshape(-1,1))
-  \end{minted}
-\end{frame}
-
-% SLIDE 20
-
-%(n, test_size=0.2, noise_level=0.1, a1=0.5, a2=-0.3, b1=0.7, b2=-0.2):
-\begin{frame}{Estimated Paramters Comparison}
-  Do you remember the coeffiecients of our ARX model? 
-    \begin{align*}\centering 
-      \boxed{y_t = \bm{0.5}* y_{t-1} + \bm{0.3} * y_{t-2} +  \bm{0.7}*u_{t-1} + \bm{-0.2}* u_{t-2}} 
-    \end{align*} \pause
-    \begin{table}[h]
-      \centering
-      \renewcommand{\arraystretch}{1.5} % Increases the row height
-      \begin{tabular}{|c|c|c|c|c|c|}
-        \hline
-        \textbf{} & $\boldsymbol{\hat{a}_1}$ & $\boldsymbol{\hat{a}_2}$ & $\boldsymbol{\hat{b}_1}$ & $\boldsymbol{\hat{b}_2}$ & \textbf{Intercept} \\ 
-        \hline \hline
-        \textbf{Our Model} & 0.491774 & -0.300984 & 0.695373 & -0.194563 &  0.002977 \\ 
-        \hline
-        \textbf{GEKKO} & 0.491774 & -0.300984 & 0.695373 & -0.194563 & 0.002977\\ 
-        \hline
-        \textbf{SysIdentPy} & 0.491774 & -0.300984 & 0.695373 & -0.194562 & 0.002977 \\ 
-        \hline
-      \end{tabular}
-      \caption{Estimated parameters of an ARX model using 3 different libraries}
-      \label{your_label}
-    \end{table}
-\end{frame}
-
-% SLIDE 21
-\begin{frame}[fragile]{Forecast  using  \underbar{SysIdentPy}}
-  \begin{minted}[fontsize=\scriptsize]{python}
-    yhat = model.predict(X=u_test.reshape(-1,1), y=y_test.reshape(-1,1)).squeeze()
-  \end{minted}
-  \begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{img/response_yhat.pdf}
-  \end{figure}
-  
-\end{frame}
-
 % SLIDE 22
 \begin{frame}[fragile]{}
   \begin{columns}[T]
@@ -647,19 +486,16 @@ Where $y_p$ is the estimated reponse, $p$ is the vector of paramters and K is th
       The likelihood function measures the probability of observing the given data under different parameter values of a statistical model.
   \end{definition}
   
-  \begin{equation}
+  \begin{equation*}
       L(\theta | x) = P(X = x | \theta)
-  \end{equation}
+  \end{equation*}
   
   \begin{itemize}
       \item $\theta$: Parameters of the model
       \item $x$: Observed data
       \item $L(\theta | x)$: Likelihood of parameter $\theta$ given data $x$
   \end{itemize}
-  
-  \begin{block}{Example}
-      In a coin-tossing experiment, the likelihood function can help determine the probability of observing a certain number of heads given the probability of heads ($\theta$).
-  \end{block}
+
 \end{frame}
 
 
